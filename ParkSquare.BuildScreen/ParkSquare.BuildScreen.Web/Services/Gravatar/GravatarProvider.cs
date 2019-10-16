@@ -32,7 +32,7 @@ namespace ParkSquare.BuildScreen.Web.Services.Gravatar
             try
             {
                 var hash = GetHash(avatarId.UniqueName.ToLower().Trim());
-                var requestUri = new Uri($"https://www.gravatar.com/avatar/{hash}?s=600&d=404");
+                var requestUri = new Uri($"https://www.gravatar.com/avatar/{hash}?s=400&d=404");
                 
                 var client = _httpClientFactory.GetClientInstance();
 
@@ -42,11 +42,20 @@ namespace ParkSquare.BuildScreen.Web.Services.Gravatar
                     {
                         var data = await response.Content.ReadAsByteArrayAsync();
                         var contentType = response.Content.Headers.ContentType.MediaType;
-
+                        
                         var type = _imageFormatManager.FindFormatByMimeType(contentType);
 
                         using (var image = Image.Load(data))
                         {
+                            if (image.Height == dimensions.Height && image.Width == dimensions.Width)
+                            {
+                                return new Avatar
+                                {
+                                    Data = data,
+                                    ContentType = contentType
+                                };
+                            }
+
                             image.Mutate(x => x.Resize(dimensions.Width, dimensions.Height));
                             var resized = ConvertToByteArray(image, type);
 
