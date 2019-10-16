@@ -7,7 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ParkSquare.BuildScreen.Web.Services;
 using ParkSquare.BuildScreen.Web.Services.AzureDevOps;
+using ParkSquare.BuildScreen.Web.Services.Gravatar;
 using Serilog;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Formats.Png;
 
 namespace ParkSquare.BuildScreen.Web
 {
@@ -34,6 +38,18 @@ namespace ParkSquare.BuildScreen.Web
             services.AddSingleton<IConfig, Config>();
             services.AddSingleton<IBranchNameConverter, BranchNameConverter>();
             services.AddSingleton<IDisplayTransformer, DisplayTransformer>();
+            services.AddSingleton<IAvatarProvider, GravatarProvider>();
+
+            services.AddSingleton<ImageFormatManager, ImageFormatManager>(x => GetImageFormatManager());
+        }
+
+        private static ImageFormatManager GetImageFormatManager()
+        {
+            var manager = new ImageFormatManager();
+            manager.AddImageFormat(JpegFormat.Instance);
+            manager.AddImageFormat(PngFormat.Instance);
+
+            return manager;
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

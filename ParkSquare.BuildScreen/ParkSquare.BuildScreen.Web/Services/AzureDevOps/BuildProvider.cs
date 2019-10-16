@@ -46,7 +46,7 @@ namespace ParkSquare.BuildScreen.Web.Services.AzureDevOps
 
         private async Task<IReadOnlyCollection<Build>> GetBuildsAsync(IEnumerable<string> projects, DateTime since)
         {
-            var client = _httpClientFactory.CreateClient();
+            var client = _httpClientFactory.GetClientInstance();
             var dtos = new List<BuildDto>();
 
             foreach (var project in projects)

@@ -21,7 +21,7 @@ namespace ParkSquare.BuildScreen.Web.Services.AzureDevOps
 
         public async Task<TestResults> GetTestsForBuildAsync(string project, string buildUri)
         {
-            var client = _httpClientFactory.CreateClient();
+            var client = _httpClientFactory.GetClientInstance();
             var requestPath = GetRequestPath(project, buildUri);
             var requestUri = new Uri(_config.ApiBaseUrl, requestPath);
 

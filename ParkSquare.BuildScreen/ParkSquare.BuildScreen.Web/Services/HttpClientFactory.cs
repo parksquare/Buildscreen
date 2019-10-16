@@ -16,7 +16,7 @@ namespace ParkSquare.BuildScreen.Web.Services
             _httpClient = CreateInstance(config);
         }
 
-        public HttpClient CreateClient()
+        public HttpClient GetClientInstance()
         {
             return _httpClient;
         }
