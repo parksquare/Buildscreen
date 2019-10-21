@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+using ParkSquare.BuildScreen.AzureDevOps;
 using ParkSquare.BuildScreen.AzureDevOps.Build;
 
 namespace ParkSquare.BuildScreen.Web
@@ -28,6 +29,8 @@ namespace ParkSquare.BuildScreen.Web
         public string ServerUrl { get; set; }
 
         public string ProjectCollection { get; set; }
+
+        public string Organization { get; set; }
 
         public Uri ApiBaseUrl { get; }
 

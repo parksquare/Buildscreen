@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ParkSquare.BuildScreen.AzureDevOps.Build
+namespace ParkSquare.BuildScreen.AzureDevOps
 {
     public interface IAzureDevOpsConfig
     {
@@ -16,6 +16,8 @@ namespace ParkSquare.BuildScreen.AzureDevOps.Build
         string ServerUrl { get; set; }
 
         string ProjectCollection { get; set; }
+
+        string Organization { get; set; }
 
         Uri ApiBaseUrl { get; }
 

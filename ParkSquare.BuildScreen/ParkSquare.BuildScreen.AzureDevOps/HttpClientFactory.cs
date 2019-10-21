@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace ParkSquare.BuildScreen.AzureDevOps.Build
+namespace ParkSquare.BuildScreen.AzureDevOps
 {
     public class HttpClientFactory : IHttpClientFactory
     {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ParkSquare.BuildScreen.AzureDevOps.Avatar;
+using ParkSquare.BuildScreen.AzureDevOps.User;
 using ParkSquare.BuildScreen.Core.Avatar;
 using ParkSquare.BuildScreen.Gravatar;
 using SixLabors.ImageSharp.Formats;
@@ -21,6 +22,7 @@ namespace ParkSquare.BuildScreen.Web
 
             // Azure DevOps avatar provider
             services.AddSingleton<IAvatarProvider, AzureDevOpsAvatarProvider>();
+            services.AddSingleton<IUserRepository, UserRepository>();
 
             // Default avatar provider (returns a single transparent pixel)
             services.AddSingleton<IAvatarProvider, TransparentPixelAvatarProvider>();

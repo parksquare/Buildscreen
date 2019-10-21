@@ -120,11 +120,7 @@ namespace ParkSquare.BuildScreen.AzureDevOps.Build
 
         private static string GetRequestPath(string project, DateTime buildSince)
         {
-            // Should use X-MS-ContinuationToken instead of an arbitrarily large number of results, but
-            // on inspecting the responses from TFS, said header doesn't seem to be present. Despite it 
-            // being mentioned in Access-Control-Expose-Headers.
-            // https://www.visualstudio.com/en-us/docs/integrate/api/build/builds 
-
+            // Should use X-MS-ContinuationToken here, and handling paging correctly
             return project + "/_apis/build/builds" + CreateFilterQuery(buildSince) + "&$top=5000";
         }
 
