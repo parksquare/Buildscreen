@@ -46,7 +46,7 @@ namespace ParkSquare.BuildScreen.Web
             services.AddSingleton<IBuildFilter, LatestBuildsFilter>();
             services.AddSingleton<IBuildFilter, CompletedPullRequestFilter>();
             services.AddSingleton<ITestResultsProvider, TestResultsProvider>();
-            services.AddSingleton<IAzureDevOpsConfig, Config>();
+            services.AddSingleton<IAzureDevOpsConfig, AzureDevOpsConfig>();
             services.AddSingleton<IBranchNameConverter, BranchNameConverter>();
             services.AddSingleton<IDisplayTransformer, DisplayTransformer>();
         }
