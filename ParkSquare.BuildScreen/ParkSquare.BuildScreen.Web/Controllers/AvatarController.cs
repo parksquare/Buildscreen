@@ -26,13 +26,20 @@ namespace ParkSquare.BuildScreen.Web.Controllers
         [HttpGet("{id}/{uniqueName}/{width}/{height}")]
         public async Task<IActionResult> GetAsync(string id, string uniqueName, int width, int height)
         {
-            var avatarId = new AvatarId {Id = id, UniqueName = uniqueName};
-            var dimensions = new ImageDimensions(width, height);
+            try
+            {
+                var avatarId = new AvatarId { Id = id, UniqueName = uniqueName };
+                var dimensions = new ImageDimensions(width, height);
 
-            var avatar = await _avatarService.GetAvatarAsync(avatarId, dimensions);
+                var avatar = await _avatarService.GetAvatarAsync(avatarId, dimensions);
 
-            var response = File(avatar.Data, avatar.ContentType);
-            return response;
+                var response = File(avatar.Data, avatar.ContentType);
+                return response;
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
     }
 }

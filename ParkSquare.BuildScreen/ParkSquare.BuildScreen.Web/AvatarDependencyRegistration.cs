@@ -18,6 +18,9 @@ namespace ParkSquare.BuildScreen.Web
             services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
             services.AddSingleton<ImageFormatManager, ImageFormatManager>(x => GetImageFormatManager());
 
+            // Default avatar provider (returns a single transparent pixel)
+            services.AddSingleton<IAvatarProvider, TransparentPixelAvatarProvider>();
+
             return services;
         }
 

@@ -16,12 +16,16 @@ namespace ParkSquare.BuildScreen.Core.Avatar
             _avatarProviders = avatarProviders.OrderBy(x => x.Order);
         }
 
-        public Task<UserAvatar> GetAvatarAsync(AvatarId avatarId, ImageDimensions dimensions)
+        public async Task<UserAvatar> GetAvatarAsync(AvatarId avatarId, ImageDimensions dimensions)
         {
             foreach (var provider in _avatarProviders)
             {
-                var result = provider.GetAvatarAsync(avatarId, dimensions);
-                if (result != null) return result;
+                var result = await provider.GetAvatarAsync(avatarId, dimensions);
+
+                if (result != null && result != UserAvatar.NotAvailable)
+                {
+                    return result;
+                }
             }
 
             throw new AvatarServiceException("No avatar provider returned a valid response");
