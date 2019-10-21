@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ParkSquare.BuildScreen.Core.AzureDevOps;
+using ParkSquare.BuildScreen.AzureDevOps.Build;
 using ParkSquare.BuildScreen.Core.Build;
 
 namespace ParkSquare.BuildScreen.Web

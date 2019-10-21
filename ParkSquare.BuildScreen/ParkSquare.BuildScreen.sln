@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkSquare.BuildScreen.Web", "ParkSquare.BuildScreen.Web\ParkSquare.BuildScreen.Web.csproj", "{FD9BAD2F-F07C-4F2E-BD53-3F5CDE90D691}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkSquare.BuildScreen.Core", "ParkSquare.BuildScreen.Core\ParkSquare.BuildScreen.Core.csproj", "{44A3D498-895E-4DD0-8C7E-26B8511AC2FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkSquare.BuildScreen.Core", "ParkSquare.BuildScreen.Core\ParkSquare.BuildScreen.Core.csproj", "{44A3D498-895E-4DD0-8C7E-26B8511AC2FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkSquare.BuildScreen.AzureDevOps", "ParkSquare.BuildScreen.AzureDevOps\ParkSquare.BuildScreen.AzureDevOps.csproj", "{4E2124B1-60F9-4941-AEF5-E4286917A97F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkSquare.BuildScreen.Gravatar", "ParkSquare.BuildScreen.Gravatar\ParkSquare.BuildScreen.Gravatar.csproj", "{61AA44A3-750B-435C-A0A9-187E23E0B9DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{44A3D498-895E-4DD0-8C7E-26B8511AC2FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44A3D498-895E-4DD0-8C7E-26B8511AC2FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44A3D498-895E-4DD0-8C7E-26B8511AC2FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E2124B1-60F9-4941-AEF5-E4286917A97F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E2124B1-60F9-4941-AEF5-E4286917A97F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E2124B1-60F9-4941-AEF5-E4286917A97F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E2124B1-60F9-4941-AEF5-E4286917A97F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61AA44A3-750B-435C-A0A9-187E23E0B9DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61AA44A3-750B-435C-A0A9-187E23E0B9DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61AA44A3-750B-435C-A0A9-187E23E0B9DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61AA44A3-750B-435C-A0A9-187E23E0B9DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

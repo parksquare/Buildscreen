@@ -18,7 +18,9 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\ParkSquare.BuildScreen.AzureDevOps\ParkSquare.BuildScreen.AzureDevOps.csproj" />
     <ProjectReference Include="..\ParkSquare.BuildScreen.Core\ParkSquare.BuildScreen.Core.csproj" />
+    <ProjectReference Include="..\ParkSquare.BuildScreen.Gravatar\ParkSquare.BuildScreen.Gravatar.csproj" />
   </ItemGroup>
 
 </Project>

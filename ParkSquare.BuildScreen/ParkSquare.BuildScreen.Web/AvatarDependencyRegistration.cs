@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using ParkSquare.BuildScreen.AzureDevOps.Avatar;
 using ParkSquare.BuildScreen.Core.Avatar;
-using ParkSquare.BuildScreen.Core.AzureDevOps;
-using ParkSquare.BuildScreen.Core.Gravatar;
+using ParkSquare.BuildScreen.Gravatar;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
@@ -16,7 +16,7 @@ namespace ParkSquare.BuildScreen.Web
 
             // Gravatar avatar provider
             services.AddSingleton<IAvatarProvider, GravatarProvider>();
-            services.AddSingleton<Core.Gravatar.IHttpClientFactory, Core.Gravatar.HttpClientFactory>();
+            services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
             services.AddSingleton<ImageFormatManager, ImageFormatManager>(x => GetImageFormatManager());
 
             // Azure DevOps avatar provider

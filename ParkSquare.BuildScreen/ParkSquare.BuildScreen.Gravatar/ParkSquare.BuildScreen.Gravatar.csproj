@@ -2,13 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <ProjectGuid>{79160af4-2912-4d71-8309-8c07a8c3ca45}</ProjectGuid>
+    <ProjectGuid>{2f5085fe-8623-43fa-ae09-cd1a6b845d0b}</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Serilog.AspNetCore" Version="3.0.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0007" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ParkSquare.BuildScreen.Core\ParkSquare.BuildScreen.Core.csproj" />
   </ItemGroup>
 
 </Project>
