@@ -36,12 +36,15 @@ namespace ParkSquare.BuildScreen.Web
             services.AddSingleton<IAvatarService, AvatarService>();
             services.AddSingleton<IAvatarProvider, GravatarProvider>();
 
+            // Gravatar avatar provider
+            services.AddSingleton<Core.Gravatar.IHttpClientFactory, Core.Gravatar.HttpClientFactory>();
+
             // Build providers
             services.AddSingleton<IBuildService, BuildService>();
             services.AddSingleton<IBuildProvider, AzureDevOpsBuildProvider>();
 
             // Azure DevOps build provider 
-            services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
+            services.AddSingleton<Core.AzureDevOps.IHttpClientFactory, Core.AzureDevOps.HttpClientFactory>();
             services.AddSingleton<IBuildDtoConverter, BuildDtoConverter>();
             services.AddSingleton<IBuildFilter, LatestBuildsFilter>();
             services.AddSingleton<IBuildFilter, CompletedPullRequestFilter>();
