@@ -35,17 +35,17 @@ namespace ParkSquare.BuildScreen.Web.AzureDevOps
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public Task<IReadOnlyCollection<Build.Build>> GetBuildsAsync()
+        public Task<IReadOnlyCollection<BuildTile>> GetBuildsAsync()
         {
             return GetBuildsAsync(_config.TeamProjects, DateTime.Now.AddDays(-_config.MaxBuildAgeDays));
         }
 
-        public Task<IReadOnlyCollection<Build.Build>> GetBuildsAsync(int sinceHours)
+        public Task<IReadOnlyCollection<BuildTile>> GetBuildsAsync(int sinceHours)
         {
             return GetBuildsAsync(_config.TeamProjects, DateTime.Now.AddHours(-sinceHours));
         }
 
-        private async Task<IReadOnlyCollection<Build.Build>> GetBuildsAsync(IEnumerable<string> projects, DateTime since)
+        private async Task<IReadOnlyCollection<BuildTile>> GetBuildsAsync(IEnumerable<string> projects, DateTime since)
         {
             var client = _httpClientFactory.GetClientInstance();
             var dtos = new List<BuildDto>();
@@ -90,7 +90,7 @@ namespace ParkSquare.BuildScreen.Web.AzureDevOps
 
             var testResults = getTestTasks.Select(x => x.Result).Where(y => y != null).ToList();
 
-            var converted = new List<Build.Build>();
+            var converted = new List<BuildTile>();
             foreach (var buildDto in latestBuilds)
             {
                 var testsForBuild = testResults.FirstOrDefault(x => x.BuildUri.Equals(buildDto.Uri));

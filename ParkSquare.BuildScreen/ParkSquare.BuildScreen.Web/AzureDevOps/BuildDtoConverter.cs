@@ -15,9 +15,9 @@ namespace ParkSquare.BuildScreen.Web.AzureDevOps
             _displayTransformer = displayTransformer ?? throw new ArgumentNullException(nameof(displayTransformer));
         }
 
-        public Build.Build Convert(BuildDto buildDto, TestResults testResults)
+        public BuildTile Convert(BuildDto buildDto, TestResults testResults)
         {
-            return new Build.Build
+            return new BuildTile
             {
                 Id = buildDto.Id,
                 BuildReportUrl = buildDto.Links.Web.Href,

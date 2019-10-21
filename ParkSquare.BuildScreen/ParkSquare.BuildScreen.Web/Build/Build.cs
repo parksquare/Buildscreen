@@ -2,7 +2,7 @@
 
 namespace ParkSquare.BuildScreen.Web.Build
 {
-    public class Build
+    public class BuildTile
     {
         public string Id { get; set; }
 

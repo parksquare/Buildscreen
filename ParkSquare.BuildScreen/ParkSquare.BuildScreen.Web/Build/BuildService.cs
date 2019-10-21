@@ -14,7 +14,7 @@ namespace ParkSquare.BuildScreen.Web.Build
             _buildProviders = buildProviders ?? throw new ArgumentNullException(nameof(buildProviders));
         }
 
-        public async Task<IReadOnlyCollection<Web.Build.Build>> GetBuildsAsync()
+        public async Task<IReadOnlyCollection<BuildTile>> GetBuildsAsync()
         {
             var tasks = _buildProviders.Select(x => x.GetBuildsAsync()).ToList();
             await Task.WhenAll(tasks);
@@ -23,7 +23,7 @@ namespace ParkSquare.BuildScreen.Web.Build
             return results.ToList();
         }
 
-        public async Task<IReadOnlyCollection<Web.Build.Build>> GetBuildsAsync(int sinceHours)
+        public async Task<IReadOnlyCollection<BuildTile>> GetBuildsAsync(int sinceHours)
         {
             var tasks = _buildProviders.Select(x => x.GetBuildsAsync(sinceHours)).ToList();
             await Task.WhenAll(tasks);

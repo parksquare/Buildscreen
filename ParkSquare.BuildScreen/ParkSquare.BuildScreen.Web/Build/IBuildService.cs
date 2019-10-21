@@ -5,9 +5,9 @@ namespace ParkSquare.BuildScreen.Web.Build
 {
     public interface IBuildService
     {
-        Task<IReadOnlyCollection<Web.Build.Build>> GetBuildsAsync();
+        Task<IReadOnlyCollection<BuildTile>> GetBuildsAsync();
 
-        Task<IReadOnlyCollection<Web.Build.Build>> GetBuildsAsync(int sinceHours);
+        Task<IReadOnlyCollection<BuildTile>> GetBuildsAsync(int sinceHours);
 
     }
 }
