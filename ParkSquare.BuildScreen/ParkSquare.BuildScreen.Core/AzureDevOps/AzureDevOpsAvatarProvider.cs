@@ -8,7 +8,7 @@ namespace ParkSquare.BuildScreen.Core.AzureDevOps
     {
         public int Order => 2;
 
-        public Task<UserAvatar> GetAvatarAsync(AvatarId avatarId, ImageDimensions dimensions)
+        public Task<UserAvatar> GetAvatarAsync(string email, ImageDimensions dimensions)
         {
             throw new NotImplementedException();
         }

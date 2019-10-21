@@ -28,8 +28,6 @@ namespace ParkSquare.BuildScreen.Core.Build
 
         public string RepoName { get; set; }
 
-        public string RequestedForId { get; set; }
-
-        public string RequestedForUniqueName { get; set; }
+        public string UserEmail { get; set; }
     }
 }

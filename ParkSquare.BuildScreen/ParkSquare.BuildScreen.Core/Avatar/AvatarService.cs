@@ -19,13 +19,13 @@ namespace ParkSquare.BuildScreen.Core.Avatar
             _avatarProviders = avatarProviders.OrderBy(x => x.Order);
         }
 
-        public async Task<UserAvatar> GetAvatarAsync(AvatarId avatarId, ImageDimensions dimensions)
+        public async Task<UserAvatar> GetAvatarAsync(string email, ImageDimensions dimensions)
         {
             foreach (var provider in _avatarProviders)
             {
                 try
                 {
-                    var result = await provider.GetAvatarAsync(avatarId, dimensions);
+                    var result = await provider.GetAvatarAsync(email, dimensions);
 
                     if (result != null && result != UserAvatar.NotAvailable)
                     {

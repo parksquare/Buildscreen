@@ -17,21 +17,20 @@ namespace ParkSquare.BuildScreen.Web.Controllers
             _avatarService = avatarService ?? throw new ArgumentNullException(nameof(avatarService)); 
         }
 
-        [HttpGet("{id}/{uniqueName}")]
-        public Task<IActionResult> GetAsync(string id, string uniqueName)
+        [HttpGet("{email}")]
+        public Task<IActionResult> GetAsync(string email)
         {
-            return GetAsync(id, uniqueName, 400, 400);
+            return GetAsync(email, 400, 400);
         }
 
-        [HttpGet("{id}/{uniqueName}/{width}/{height}")]
-        public async Task<IActionResult> GetAsync(string id, string uniqueName, int width, int height)
+        [HttpGet("{email}/{width}/{height}")]
+        public async Task<IActionResult> GetAsync(string email, int width, int height)
         {
             try
             {
-                var avatarId = new AvatarId { Id = id, UniqueName = uniqueName };
                 var dimensions = new ImageDimensions(width, height);
 
-                var avatar = await _avatarService.GetAvatarAsync(avatarId, dimensions);
+                var avatar = await _avatarService.GetAvatarAsync(email, dimensions);
 
                 var response = File(avatar.Data, avatar.ContentType);
                 return response;

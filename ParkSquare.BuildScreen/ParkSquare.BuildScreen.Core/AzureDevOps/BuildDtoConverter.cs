@@ -31,8 +31,7 @@ namespace ParkSquare.BuildScreen.Core.AzureDevOps
                 FinishBuildDateTime = buildDto.FinishTime,
                 Branch = ConvertBranchName(buildDto.SourceBranch),
                 RepoName = _displayTransformer.Tranform(buildDto.Repository.Name),
-                RequestedForId = buildDto.RequestedFor.Id,
-                RequestedForUniqueName = buildDto.RequestedFor.UniqueName
+                UserEmail = buildDto.RequestedFor.UniqueName.ToLower()
             };
         }
 

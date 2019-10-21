@@ -25,11 +25,11 @@ namespace ParkSquare.BuildScreen.Core.Gravatar
             _imageFormatManager = imageFormatManager ?? throw new ArgumentNullException(nameof(imageFormatManager));
         }
 
-        public async Task<UserAvatar> GetAvatarAsync(AvatarId avatarId, ImageDimensions dimensions)
+        public async Task<UserAvatar> GetAvatarAsync(string email, ImageDimensions dimensions)
         {
             try
             {
-                var hash = GetHash(avatarId.UniqueName.ToLower().Trim());
+                var hash = GetHash(email.ToLower().Trim());
                 var requestUri = new Uri($"https://www.gravatar.com/avatar/{hash}?s=400&d=404");
                 
                 var client = _httpClientFactory.GetClientInstance();
@@ -68,7 +68,7 @@ namespace ParkSquare.BuildScreen.Core.Gravatar
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error getting Gravatar for '{avatarId.Id}' '{avatarId.UniqueName}': {ex.Message}");
+                _logger.LogError($"Error getting Gravatar for '{email}': {ex.Message}");
             }
 
             return UserAvatar.NotAvailable;

@@ -15,7 +15,7 @@ namespace ParkSquare.BuildScreen.Web
 
         private static string CreateAvatarUrl(BuildTile build)
         {
-            return $"avatar/{build.RequestedForId}/{build.RequestedForUniqueName}";
+            return $"avatar/{build.UserEmail}";
         }
     }
 }

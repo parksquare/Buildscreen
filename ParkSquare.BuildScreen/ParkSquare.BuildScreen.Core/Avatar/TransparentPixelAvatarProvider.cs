@@ -9,7 +9,7 @@ namespace ParkSquare.BuildScreen.Core.Avatar
     {
         public int Order => int.MaxValue;
 
-        public Task<UserAvatar> GetAvatarAsync(AvatarId avatarId, ImageDimensions dimensions)
+        public Task<UserAvatar> GetAvatarAsync(string email, ImageDimensions dimensions)
         {
             return Task.FromResult(CreateAvatar());
         }
