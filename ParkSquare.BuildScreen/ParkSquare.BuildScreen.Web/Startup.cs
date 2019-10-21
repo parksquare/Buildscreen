@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ParkSquare.BuildScreen.Web.Services;
-using ParkSquare.BuildScreen.Web.Services.AzureDevOps;
-using ParkSquare.BuildScreen.Web.Services.Gravatar;
+using ParkSquare.BuildScreen.Web.Avatar;
+using ParkSquare.BuildScreen.Web.AzureDevOps;
+using ParkSquare.BuildScreen.Web.Build;
+using ParkSquare.BuildScreen.Web.Gravatar;
 using Serilog;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Jpeg;
@@ -29,7 +30,17 @@ namespace ParkSquare.BuildScreen.Web
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddSingleton<IBuildProvider, BuildProvider>();
+            services.AddSingleton<ImageFormatManager, ImageFormatManager>(x => GetImageFormatManager());
+
+            // Avatar providers
+            services.AddSingleton<IAvatarService, AvatarService>();
+            services.AddSingleton<IAvatarProvider, GravatarProvider>();
+
+            // Build providers
+            services.AddSingleton<IBuildService, BuildService>();
+            services.AddSingleton<IBuildProvider, AzureDevOpsBuildProvider>();
+
+            // Azure DevOps build provider 
             services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
             services.AddSingleton<IBuildDtoConverter, BuildDtoConverter>();
             services.AddSingleton<IBuildFilter, LatestBuildsFilter>();
@@ -38,9 +49,6 @@ namespace ParkSquare.BuildScreen.Web
             services.AddSingleton<IConfig, Config>();
             services.AddSingleton<IBranchNameConverter, BranchNameConverter>();
             services.AddSingleton<IDisplayTransformer, DisplayTransformer>();
-            services.AddSingleton<IAvatarProvider, GravatarProvider>();
-
-            services.AddSingleton<ImageFormatManager, ImageFormatManager>(x => GetImageFormatManager());
         }
 
         private static ImageFormatManager GetImageFormatManager()

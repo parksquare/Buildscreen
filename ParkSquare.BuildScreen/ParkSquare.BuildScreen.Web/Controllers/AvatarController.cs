@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ParkSquare.BuildScreen.Web.Services;
+using ParkSquare.BuildScreen.Web.Avatar;
 
 namespace ParkSquare.BuildScreen.Web.Controllers
 {
@@ -10,11 +10,11 @@ namespace ParkSquare.BuildScreen.Web.Controllers
 
     public class AvatarController : ControllerBase
     {
-        private readonly IAvatarProvider _avatarProvider;
+        private readonly IAvatarService _avatarService;
 
-        public AvatarController(IAvatarProvider avatarProvider)
+        public AvatarController(IAvatarService avatarService)
         {
-            _avatarProvider = avatarProvider ?? throw new ArgumentNullException(nameof(avatarProvider));
+            _avatarService = avatarService ?? throw new ArgumentNullException(nameof(avatarService)); 
         }
 
         [HttpGet("{id}/{uniqueName}")]
@@ -29,7 +29,7 @@ namespace ParkSquare.BuildScreen.Web.Controllers
             var avatarId = new AvatarId {Id = id, UniqueName = uniqueName};
             var dimensions = new ImageDimensions(width, height);
 
-            var avatar = await _avatarProvider.GetAvatarAsync(avatarId, dimensions);
+            var avatar = await _avatarService.GetAvatarAsync(avatarId, dimensions);
 
             var response = File(avatar.Data, avatar.ContentType);
             return response;
