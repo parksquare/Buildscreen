@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ParkSquare.BuildScreen.Web.Avatar;
-using ParkSquare.BuildScreen.Web.AzureDevOps;
-using ParkSquare.BuildScreen.Web.Build;
-using ParkSquare.BuildScreen.Web.Gravatar;
+using ParkSquare.BuildScreen.Core.Avatar;
+using ParkSquare.BuildScreen.Core.AzureDevOps;
+using ParkSquare.BuildScreen.Core.Build;
+using ParkSquare.BuildScreen.Core.Gravatar;
 using Serilog;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Jpeg;
@@ -46,7 +46,7 @@ namespace ParkSquare.BuildScreen.Web
             services.AddSingleton<IBuildFilter, LatestBuildsFilter>();
             services.AddSingleton<IBuildFilter, CompletedPullRequestFilter>();
             services.AddSingleton<ITestResultsProvider, TestResultsProvider>();
-            services.AddSingleton<IConfig, Config>();
+            services.AddSingleton<IAzureDevOpsConfig, Config>();
             services.AddSingleton<IBranchNameConverter, BranchNameConverter>();
             services.AddSingleton<IDisplayTransformer, DisplayTransformer>();
         }

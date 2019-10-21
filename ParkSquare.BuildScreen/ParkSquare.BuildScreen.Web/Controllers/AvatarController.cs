@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ParkSquare.BuildScreen.Web.Avatar;
+using ParkSquare.BuildScreen.Core.Avatar;
 
 namespace ParkSquare.BuildScreen.Web.Controllers
 {

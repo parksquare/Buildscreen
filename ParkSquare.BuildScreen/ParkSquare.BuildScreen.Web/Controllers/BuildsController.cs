@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ParkSquare.BuildScreen.Web.Build;
+using ParkSquare.BuildScreen.Core.Build;
 using ParkSquare.BuildScreen.Web.Models;
 
 namespace ParkSquare.BuildScreen.Web.Controllers

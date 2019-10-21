@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ParkSquare.BuildScreen.Web.Build;
+using ParkSquare.BuildScreen.Core.Build;
 using ParkSquare.BuildScreen.Web.Models;
 
 namespace ParkSquare.BuildScreen.Web
