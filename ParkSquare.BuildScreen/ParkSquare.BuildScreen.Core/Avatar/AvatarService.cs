@@ -16,7 +16,7 @@ namespace ParkSquare.BuildScreen.Core.Avatar
             _avatarProviders = avatarProviders.OrderBy(x => x.Order);
         }
 
-        public Task<Avatar> GetAvatarAsync(AvatarId avatarId, ImageDimensions dimensions)
+        public Task<UserAvatar> GetAvatarAsync(AvatarId avatarId, ImageDimensions dimensions)
         {
             foreach (var provider in _avatarProviders)
             {

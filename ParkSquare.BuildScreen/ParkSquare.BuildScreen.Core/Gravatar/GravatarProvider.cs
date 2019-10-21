@@ -27,7 +27,7 @@ namespace ParkSquare.BuildScreen.Core.Gravatar
             _imageFormatManager = imageFormatManager ?? throw new ArgumentNullException(nameof(imageFormatManager));
         }
 
-        public async Task<Avatar.Avatar> GetAvatarAsync(AvatarId avatarId, ImageDimensions dimensions)
+        public async Task<UserAvatar> GetAvatarAsync(AvatarId avatarId, ImageDimensions dimensions)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace ParkSquare.BuildScreen.Core.Gravatar
                         {
                             if (image.Height == dimensions.Height && image.Width == dimensions.Width)
                             {
-                                return new Avatar.Avatar
+                                return new UserAvatar
                                 {
                                     Data = data,
                                     ContentType = contentType
@@ -59,7 +59,7 @@ namespace ParkSquare.BuildScreen.Core.Gravatar
                             image.Mutate(x => x.Resize(dimensions.Width, dimensions.Height));
                             var resized = ConvertToByteArray(image, type);
 
-                            return new Avatar.Avatar
+                            return new UserAvatar
                             {
                                 Data = resized,
                                 ContentType = contentType
@@ -73,7 +73,7 @@ namespace ParkSquare.BuildScreen.Core.Gravatar
                 _logger.LogError($"Error getting Gravatar for '{avatarId.Id}' '{avatarId.UniqueName}': {ex.Message}");
             }
 
-            return new Avatar.Avatar {Data = CreateTransparentPixel(), ContentType = PngFormat.Instance.DefaultMimeType};
+            return new UserAvatar {Data = CreateTransparentPixel(), ContentType = PngFormat.Instance.DefaultMimeType};
         }
 
         public int Order => 1;

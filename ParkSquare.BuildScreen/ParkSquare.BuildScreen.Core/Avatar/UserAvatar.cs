@@ -1,6 +1,6 @@
 ﻿namespace ParkSquare.BuildScreen.Core.Avatar
 {
-    public class Avatar
+    public class UserAvatar
     {
         public byte[] Data { get; set; }
 

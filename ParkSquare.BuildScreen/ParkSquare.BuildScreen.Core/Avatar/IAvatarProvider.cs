@@ -4,7 +4,7 @@ namespace ParkSquare.BuildScreen.Core.Avatar
 {
     public interface IAvatarProvider
     {
-        Task<Avatar> GetAvatarAsync(AvatarId avatarId, ImageDimensions dimensions);
+        Task<UserAvatar> GetAvatarAsync(AvatarId avatarId, ImageDimensions dimensions);
 
         int Order { get; }
     }
