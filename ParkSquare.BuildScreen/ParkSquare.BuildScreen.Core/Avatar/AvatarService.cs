@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace ParkSquare.BuildScreen.Core.Avatar
 {
     public class AvatarService : IAvatarService
     {
+        private readonly ILogger<IAvatarService> _logger;
         private readonly IEnumerable<IAvatarProvider> _avatarProviders;
 
-        public AvatarService(IEnumerable<IAvatarProvider> avatarProviders)
+        public AvatarService(ILogger<IAvatarService> logger, IEnumerable<IAvatarProvider> avatarProviders)
         {
             if (avatarProviders == null) throw new ArgumentNullException(nameof(avatarProviders));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             _avatarProviders = avatarProviders.OrderBy(x => x.Order);
         }
@@ -20,11 +23,18 @@ namespace ParkSquare.BuildScreen.Core.Avatar
         {
             foreach (var provider in _avatarProviders)
             {
-                var result = await provider.GetAvatarAsync(avatarId, dimensions);
-
-                if (result != null && result != UserAvatar.NotAvailable)
+                try
                 {
-                    return result;
+                    var result = await provider.GetAvatarAsync(avatarId, dimensions);
+
+                    if (result != null && result != UserAvatar.NotAvailable)
+                    {
+                        return result;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError( $"Error calling avatar provider: {ex.Message}");
                 }
             }
 
