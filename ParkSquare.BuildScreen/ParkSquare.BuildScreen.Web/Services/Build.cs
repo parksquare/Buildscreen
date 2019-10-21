@@ -24,10 +24,12 @@ namespace ParkSquare.BuildScreen.Web.Services
 
         public string BuildReportUrl { get; set; } 
 
-        public string RequestedByPictureUrl { get; set; }
-
         public string Branch { get; set; }
 
         public string RepoName { get; set; }
+
+        public string RequestedForId { get; set; }
+
+        public string RequestedForUniqueName { get; set; }
     }
 }

@@ -7,7 +7,14 @@ namespace ParkSquare.BuildScreen.Web.Services
     {
         public MappingProfile()
         {
-            CreateMap<Build, BuildInfoDto>();
+            CreateMap<Build, BuildInfoDto>()
+                .ForMember(dest => dest.RequestedByPictureUrl,
+                    opt => opt.MapFrom(src => CreateAvatarUrl(src)));
+        }
+
+        private static string CreateAvatarUrl(Build build)
+        {
+            return $"avatar/{build.RequestedForId}/{build.RequestedForUniqueName}";
         }
     }
 }

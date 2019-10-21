@@ -28,15 +28,11 @@ namespace ParkSquare.BuildScreen.Web.Services.AzureDevOps
                 BuildDefinition = _displayTransformer.Tranform(buildDto.Definition.Name),
                 StartBuildDateTime = buildDto.StartTime,
                 FinishBuildDateTime = buildDto.FinishTime,
-                RequestedByPictureUrl = GetAvatarUrl(buildDto),
                 Branch = ConvertBranchName(buildDto.SourceBranch),
-                RepoName = _displayTransformer.Tranform(buildDto.Repository.Name)
+                RepoName = _displayTransformer.Tranform(buildDto.Repository.Name),
+                RequestedForId = buildDto.RequestedFor.Id,
+                RequestedForUniqueName = buildDto.RequestedFor.UniqueName
             };
-        }
-
-        private static string GetAvatarUrl(BuildDto buildDto)
-        {
-            return $"avatar/{buildDto.RequestedFor.Id}/{buildDto.RequestedFor.UniqueName}";
         }
 
         private string ConvertBranchName(string branchName)
