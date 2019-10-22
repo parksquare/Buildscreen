@@ -1,4 +1,5 @@
-﻿using SixLabors.ImageSharp;
+﻿using System;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 
 namespace ParkSquare.BuildScreen.Core.Imaging
@@ -15,10 +16,12 @@ namespace ParkSquare.BuildScreen.Core.Imaging
             var xScaleFactor = (double) width / image.Width;
             var yScaleFactor = (double) height / image.Height;
 
-            if (xScaleFactor.Equals(yScaleFactor))
+            /*
+            if (Math.Abs(xScaleFactor - yScaleFactor) < 1)
             {
                 return image.Clone(x => x.Resize(width, height));
             }
+            */
 
             return xScaleFactor > yScaleFactor
                 ? PadToSize(image, height, (int) (image.Width * yScaleFactor), height, width)
