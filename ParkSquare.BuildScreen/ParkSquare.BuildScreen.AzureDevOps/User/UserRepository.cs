@@ -43,7 +43,7 @@ namespace ParkSquare.BuildScreen.AzureDevOps.User
         {
             // Should use X-MS-ContinuationToken here, and handling paging correctly
 
-            var client = _httpClientFactory.GetClientInstance();
+            var client = _httpClientFactory.GetJsonClient();
             var requestUri = new Uri($"https://vssps.dev.azure.com/{_config.Organization}/_apis/graph/users?api-version=5.1-preview.1");
 
             try

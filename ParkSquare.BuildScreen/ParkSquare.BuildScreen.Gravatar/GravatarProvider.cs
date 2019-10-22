@@ -4,9 +4,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using ParkSquare.BuildScreen.Core.Avatar;
+using ParkSquare.BuildScreen.Core.Imaging;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
-using SixLabors.ImageSharp.Processing;
 
 namespace ParkSquare.BuildScreen.Gravatar
 {
@@ -15,14 +15,20 @@ namespace ParkSquare.BuildScreen.Gravatar
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILogger<IAvatarProvider> _logger;
         private readonly ImageFormatManager _imageFormatManager;
+        private readonly IImageResizer _imageResizer;
 
         public int Order => 1;
 
-        public GravatarProvider(IHttpClientFactory httpClientFactory, ILogger<IAvatarProvider> logger, ImageFormatManager imageFormatManager)
+        public GravatarProvider(
+            IHttpClientFactory httpClientFactory, 
+            ILogger<IAvatarProvider> logger, 
+            ImageFormatManager imageFormatManager,
+            IImageResizer imageResizer)
         {
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _imageFormatManager = imageFormatManager ?? throw new ArgumentNullException(nameof(imageFormatManager));
+            _imageResizer = imageResizer ?? throw new ArgumentNullException(nameof(imageResizer));
         }
 
         public async Task<UserAvatar> GetAvatarAsync(string email, ImageDimensions dimensions)
@@ -45,21 +51,12 @@ namespace ParkSquare.BuildScreen.Gravatar
 
                         using (var image = Image.Load(data))
                         {
-                            if (image.Height == dimensions.Height && image.Width == dimensions.Width)
-                            {
-                                return new UserAvatar
-                                {
-                                    Data = data,
-                                    ContentType = contentType
-                                };
-                            }
-
-                            image.Mutate(x => x.Resize(dimensions.Width, dimensions.Height));
-                            var resized = image.ConvertToByteArray(type);
+                            var resizedImage = _imageResizer.Resize(image, dimensions.Height, dimensions.Width);
+                            var bytes = resizedImage.ConvertToByteArray(type);
 
                             return new UserAvatar
                             {
-                                Data = resized,
+                                Data = bytes,
                                 ContentType = contentType
                             };
                         }

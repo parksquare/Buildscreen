@@ -4,6 +4,8 @@ namespace ParkSquare.BuildScreen.AzureDevOps
 {
     public interface IHttpClientFactory
     {
-        HttpClient GetClientInstance();
+        HttpClient GetJsonClient();
+
+        HttpClient GetClient();
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ParkSquare.BuildScreen.Core.Imaging;
 using Serilog;
 
 namespace ParkSquare.BuildScreen.Web
@@ -22,6 +23,7 @@ namespace ParkSquare.BuildScreen.Web
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSingleton<IImageResizer, ImageResizer>();
 
             services
                 .AddAvatarDependencies()
