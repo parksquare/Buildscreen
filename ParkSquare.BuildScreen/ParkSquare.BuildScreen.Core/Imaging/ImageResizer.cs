@@ -8,10 +8,12 @@ namespace ParkSquare.BuildScreen.Core.Imaging
     {
         public Image Resize(Image image, int height, int width)
         {
+            /*
             if (image.Height == height && image.Width == width)
             {
                 return image;
             }
+            */
 
             var xScaleFactor = (double) width / image.Width;
             var yScaleFactor = (double) height / image.Height;
