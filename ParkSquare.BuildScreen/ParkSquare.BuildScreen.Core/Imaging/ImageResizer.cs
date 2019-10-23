@@ -8,23 +8,24 @@ namespace ParkSquare.BuildScreen.Core.Imaging
     {
         public Image Resize(Image image, int height, int width)
         {
-            /*
+            // This bug in ImageSharp causes JPG images to be pink and weird in certain
+            // circumstances, e.g. if Gravatar is jpg. Workaround is to use PNG instead.
+            // https://github.com/SixLabors/ImageSharp/issues/871
+            // Fixed in their MyGet repo but not the Nuget prerelease yet.
+
             if (image.Height == height && image.Width == width)
             {
                 return image;
             }
-            */
 
             var xScaleFactor = (double) width / image.Width;
             var yScaleFactor = (double) height / image.Height;
 
-            /*
-            if (Math.Abs(xScaleFactor - yScaleFactor) < 1)
+            if (xScaleFactor.Equals(yScaleFactor))
             {
                 return image.Clone(x => x.Resize(width, height));
             }
-            */
-
+            
             return xScaleFactor > yScaleFactor
                 ? PadToSize(image, height, (int) (image.Width * yScaleFactor), height, width)
                 : PadToSize(image, (int) (image.Height * xScaleFactor), width, height, width);
