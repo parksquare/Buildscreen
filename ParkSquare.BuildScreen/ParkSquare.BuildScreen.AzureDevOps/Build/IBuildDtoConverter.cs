@@ -5,6 +5,6 @@ namespace ParkSquare.BuildScreen.AzureDevOps.Build
 {
     public interface IBuildDtoConverter
     {
-        BuildTile Convert(BuildDto build, TestResults testResultsDto);
+        BuildTile Convert(BuildDto buildDto, TestResults testResultsDto);
     }
 }

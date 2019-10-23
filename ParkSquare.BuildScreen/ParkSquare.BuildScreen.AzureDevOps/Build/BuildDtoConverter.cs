@@ -15,7 +15,7 @@ namespace ParkSquare.BuildScreen.AzureDevOps.Build
             _displayTransformer = displayTransformer ?? throw new ArgumentNullException(nameof(displayTransformer));
         }
 
-        public BuildTile Convert(BuildDto buildDto, TestResults testResults)
+        public BuildTile Convert(BuildDto buildDto, TestResults testResultsDto)
         {
             return new BuildTile
             {
@@ -23,8 +23,8 @@ namespace ParkSquare.BuildScreen.AzureDevOps.Build
                 BuildReportUrl = buildDto.Links.Web.Href,
                 RequestedByName = buildDto.RequestedFor.DisplayName,
                 Status = string.IsNullOrEmpty(buildDto.Result) ? buildDto.Status : buildDto.Result,
-                TotalNumberOfTests = testResults?.TotalTests ?? 0,
-                PassedNumberOfTests = testResults?.PassedTests ?? 0,
+                TotalNumberOfTests = testResultsDto?.TotalTests ?? 0,
+                PassedNumberOfTests = testResultsDto?.PassedTests ?? 0,
                 TeamProject = _displayTransformer.Tranform(buildDto.Project.Name),
                 BuildDefinition = _displayTransformer.Tranform(buildDto.Definition.Name),
                 StartBuildDateTime = buildDto.StartTime,
