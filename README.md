@@ -8,7 +8,7 @@ View the latest builds from your Azure DevOps and on-premise Team Foundation Ser
 This project is a modernized resurrection of the original open source project by (now defunct) Orbit One.
 
 We've streamlined the service layer to use the latest Azure DevOps REST APIs for best performance, improved the styling, fixed some
-bugs, and migrated the whole thing to .Net Core.
+bugs, and migrated the whole thing to .Net Core. Also supports display of Gravatar and Azure DevOps avatars.
 
 Supported statuses
 ------------------
@@ -35,7 +35,8 @@ e.g.
         -e AzureDevOpsProvider:ServerUrl="https://yourazdo.visualstudio.com"
         -e AzureDevOpsProvider:AuthToken="yourauthtoken"
         -e AzureDevOpsProvider:ProjectCollection="projectcolletion"
-        -e AzureDevOpsProvider:Projects="comma,delimited,list" 
+        -e AzureDevOpsProvider:Projects="comma,delimited,list"
+        -e AzureDevOpsProvider:Organization="your-organization"
         parksq/buildscreen:latest
 
 Replace the ServerUrl, AuthToken, ProjectCollection and Projects (comma delimited list if more than one) values with those appropriate for your setup.
