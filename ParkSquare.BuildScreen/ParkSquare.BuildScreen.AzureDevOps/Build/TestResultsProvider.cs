@@ -11,22 +11,18 @@ namespace ParkSquare.BuildScreen.AzureDevOps.Build
 {
     public class TestResultsProvider : ITestResultsProvider
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IAzureDevOpsConfig _config;
+        private readonly IAzureDevOpsClient _client; 
 
-        public TestResultsProvider(IHttpClientFactory httpClientFactory, IAzureDevOpsConfig config)
+        public TestResultsProvider(IAzureDevOpsClient client)
         {
-            _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
-            _config = config ?? throw new ArgumentNullException(nameof(config));
+            _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
         public async Task<TestResults> GetTestsForBuildAsync(string project, string buildUri)
         {
-            var client = _httpClientFactory.GetJsonClient();
             var requestPath = GetRequestPath(project, buildUri);
-            var requestUri = new Uri(_config.ApiBaseUrl, requestPath);
 
-            using (var response = await client.GetAsync(requestUri))
+            using (var response = await _client.GetClient().GetAsync(requestPath))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -36,7 +32,7 @@ namespace ParkSquare.BuildScreen.AzureDevOps.Build
 
                 throw new AzureDevOpsProviderException(
                     $"Unable to get test results for {project} build {buildUri}. " +
-                    $"Call to '{requestUri}' returned {response.StatusCode}: {response.ReasonPhrase}");
+                    $"Call to '{requestPath}' returned {response.StatusCode}: {response.ReasonPhrase}");
             }
         }
 

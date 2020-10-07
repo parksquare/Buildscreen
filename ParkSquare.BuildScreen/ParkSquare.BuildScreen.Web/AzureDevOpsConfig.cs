@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using ParkSquare.BuildScreen.AzureDevOps;
-using ParkSquare.BuildScreen.AzureDevOps.Build;
 
 namespace ParkSquare.BuildScreen.Web
 {
@@ -28,8 +27,6 @@ namespace ParkSquare.BuildScreen.Web
 
         public string ServerUrl { get; set; }
 
-        public string ProjectCollection { get; set; }
-
         public string Organization { get; set; }
 
         public Uri ApiBaseUrl { get; }
@@ -43,7 +40,7 @@ namespace ParkSquare.BuildScreen.Web
         private Uri GetApiBaseUrl()
         {
             var separator = ServerUrl.EndsWith('/') ? string.Empty : "/";
-            return new Uri($"{ServerUrl}{separator}{ProjectCollection}/");
+            return new Uri($"{ServerUrl}{separator}{Organization}/");
         }
 
         private static string[] ParseMultiString(string value)

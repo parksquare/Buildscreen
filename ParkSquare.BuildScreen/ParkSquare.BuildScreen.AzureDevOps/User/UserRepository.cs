@@ -11,15 +11,15 @@ namespace ParkSquare.BuildScreen.AzureDevOps.User
 {
     public class UserRepository : IUserRepository
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IAzureDevOpsClient _client;
         private readonly ILogger<IUserRepository> _logger;
         private readonly IAzureDevOpsConfig _config;
 
         private IReadOnlyCollection<AzureUser> _users;
 
-        public UserRepository(IHttpClientFactory httpClientFactory, ILogger<IUserRepository> logger, IAzureDevOpsConfig config)
+        public UserRepository(IAzureDevOpsClient client, ILogger<IUserRepository> logger, IAzureDevOpsConfig config)
         {
-            _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
+            _client = client ?? throw new ArgumentNullException(nameof(client));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _config = config ?? throw new ArgumentNullException(nameof(config));
         }
@@ -43,12 +43,11 @@ namespace ParkSquare.BuildScreen.AzureDevOps.User
         {
             // Should use X-MS-ContinuationToken here, and handling paging correctly
 
-            var client = _httpClientFactory.GetJsonClient();
             var requestUri = new Uri($"https://vssps.dev.azure.com/{_config.Organization}/_apis/graph/users?api-version=5.1-preview.1");
 
             try
             {
-                using (var response = await client.GetAsync(requestUri))
+                using (var response = await _client.GetClient().GetAsync(requestUri))
                 {
                     if (response.IsSuccessStatusCode)
                     {

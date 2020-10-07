@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,8 +38,8 @@ namespace ParkSquare.BuildScreen.Gravatar
             {
                 var hash = GetHash(email.ToLower().Trim());
                 var requestUri = new Uri($"https://www.gravatar.com/avatar/{hash}?s=400&d=404");
-                
-                var client = _httpClientFactory.GetClientInstance();
+
+                var client = _httpClientFactory.CreateClient();
 
                 using (var response = await client.GetAsync(requestUri))
                 {

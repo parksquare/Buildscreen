@@ -11,25 +11,22 @@ namespace ParkSquare.BuildScreen.AzureDevOps.Avatar
 {
     public class AzureDevOpsAvatarProvider : IAvatarProvider
     {
+        private readonly IAzureDevOpsClient _client;
         private readonly IUserRepository _userRepository;
         private readonly ILogger<IAvatarProvider> _logger;
-        private readonly IAzureDevOpsConfig _config;
-        private readonly IHttpClientFactory _httpClientFactory;
         private readonly ImageFormatManager _imageFormatManager;
         private readonly IImageResizer _imageResizer;
 
         public AzureDevOpsAvatarProvider(
+            IAzureDevOpsClient client,
             IUserRepository userRepository, 
             ILogger<IAvatarProvider> logger, 
-            IAzureDevOpsConfig config, 
-            IHttpClientFactory httpClientFactory,
             ImageFormatManager imageFormatManager,
             IImageResizer imageResizer)
         {
+            _client = client;
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _config = config ?? throw new ArgumentNullException(nameof(config));
-            _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
             _imageFormatManager = imageFormatManager ?? throw new ArgumentNullException(nameof(imageFormatManager));
             _imageResizer = imageResizer ?? throw new ArgumentNullException(nameof(imageResizer));
         }
@@ -43,10 +40,9 @@ namespace ParkSquare.BuildScreen.AzureDevOps.Avatar
                 var user = await _userRepository.GetUserFromEmailAsync(email);
                 if (user == null) return UserAvatar.NotAvailable;
 
-                var requestUri = new Uri(_config.ApiBaseUrl,
-                    $"/_apis/GraphProfile/MemberAvatars/{user.Descriptor}?size=2");
+                var requestUri = $"_apis/GraphProfile/MemberAvatars/{user.Descriptor}?size=2";
 
-                var client = _httpClientFactory.GetClient();
+                var client = _client.GetClient();
 
                 using (var response = await client.GetAsync(requestUri))
                 {

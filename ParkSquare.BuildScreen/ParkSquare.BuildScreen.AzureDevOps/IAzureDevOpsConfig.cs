@@ -15,8 +15,6 @@ namespace ParkSquare.BuildScreen.AzureDevOps
 
         string ServerUrl { get; set; }
 
-        string ProjectCollection { get; set; }
-
         string Organization { get; set; }
 
         Uri ApiBaseUrl { get; }
