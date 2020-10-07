@@ -55,10 +55,12 @@
                 $scope.errorRest = true;
 
                 if (error.status === 0) {
-                    $scope.errorMessage = "Connection lost.";
+                    $scope.errorMessage = "Unable to connect to API";
                 } else {
-                    $scope.errorMessage = "Error " + error.status + ": " + error.statusText;
+                    $scope.errorMessage = error.data;
                 }
+
+
             }
 
             $scope.poll = function () {
@@ -100,7 +102,7 @@
                     $timeout(function () {
                         Isotope.init();
                         Search.initialize();
-                    }, 5); // Testing for Azure initialization problem
+                    }, 5);
 
                     $scope.isLoading = false;
                     $scope.poll();

@@ -53,28 +53,19 @@ namespace ParkSquare.BuildScreen.AzureDevOps.Build
             {
                 var requestPath = GetRequestPath(project, since);
 
-                try
+                using (var response = await _client.GetClient().GetAsync(requestPath))
                 {
-                    using (var response = await _client.GetClient().GetAsync(requestPath))
-                    {
-                        if (response.IsSuccessStatusCode)
-                        {
-                            var deserialized = await DeserializeResponseAsync(response);
-                            dtos.AddRange(deserialized.Value);
-                        }
-                        else
-                        {
-                            _logger.LogError($"Azure Dev Ops API returned {response.StatusCode} {response.ReasonPhrase}");
+                    _logger.LogError($"Azure Dev Ops API returned {response.ReasonPhrase}");
 
-                            throw new AzureDevOpsProviderException(
-                                "Unable to get latest builds. " +
-                                $"Call to '{requestPath}' returned {response.StatusCode}: {response.ReasonPhrase}");
-                        }
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new AzureDevOpsProviderException(
+                            $"Unable to get builds from Azure Dev Ops ({response.ReasonPhrase})");
                     }
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, $"Error getting {project} builds from Azure Dev Ops API");
+
+                    var deserialized = await DeserializeResponseAsync(response);
+                    dtos.AddRange(deserialized.Value);
+
                 }
             }
 
