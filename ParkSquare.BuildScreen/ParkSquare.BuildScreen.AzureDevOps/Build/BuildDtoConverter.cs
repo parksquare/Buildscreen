@@ -21,7 +21,7 @@ namespace ParkSquare.BuildScreen.AzureDevOps.Build
             {
                 Id = buildDto.Id,
                 BuildReportUrl = buildDto.Links.Web.Href,
-                RequestedByName = buildDto.RequestedFor.DisplayName,
+                RequestedByName = ApplyUserTransforms(buildDto.RequestedFor.DisplayName),
                 Status = string.IsNullOrEmpty(buildDto.Result) ? buildDto.Status : buildDto.Result,
                 TotalNumberOfTests = testResultsDto?.TotalTests ?? 0,
                 PassedNumberOfTests = testResultsDto?.PassedTests ?? 0,
@@ -30,9 +30,27 @@ namespace ParkSquare.BuildScreen.AzureDevOps.Build
                 StartBuildDateTime = buildDto.StartTime,
                 FinishBuildDateTime = buildDto.FinishTime,
                 Branch = ConvertBranchName(buildDto.SourceBranch),
-                RepoName = _displayTransformer.Tranform(buildDto.Repository.Name),
-                UserEmail = buildDto.RequestedFor.UniqueName.ToLower()
+                RepoName = _displayTransformer.Tranform(GetRepoName(buildDto.Repository)),
+                UserEmail = buildDto.RequestedFor.UniqueName.ToLower(),
+                Type = buildDto.Repository.Type
             };
+        }
+
+        private string ApplyUserTransforms(string name)
+        {
+            if (name.Equals("Microsoft.VisualStudio.Services.Tfs", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return "Automated";
+            }
+
+            return name;
+        }
+
+        private string GetRepoName(RepositoryDto repositoryDto)
+        {
+            return repositoryDto.Type.Equals("github", StringComparison.InvariantCultureIgnoreCase)
+                ? repositoryDto.Id
+                : repositoryDto.Name;
         }
 
         private string ConvertBranchName(string branchName)
